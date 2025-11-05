@@ -1,0 +1,7 @@
+# general
+.DS_Store
+Thumbs.db
+*.log
+# Node/Python just in case
+node_modules/
+__pycache__/
