@@ -31,19 +31,18 @@ pipeline {
     }
   }
 
-  post {
+    post {
     success {
       echo "🎉 SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-      // If you configured email (Gmail or MailHog), you can enable this:
-      // mail to: 'kakkar.varun67@gmail.com',
-      //      subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-      //      body: "Build URL: ${env.BUILD_URL}\nCommit: ${env.GIT_COMMIT}"
+      mail to: 'kakkar.varun67@gmail.com',
+           subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "Build URL: ${env.BUILD_URL}\nCommit: ${env.GIT_COMMIT}"
     }
     failure {
       echo "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-      // mail to: 'kakkar.varun67@gmail.com',
-      //      subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-      //      body: "Build URL: ${env.BUILD_URL}\nCheck console output."
+      mail to: 'kakkar.varun67@gmail.com',
+           subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+           body: "Build URL: ${env.BUILD_URL}\nCheck console output."
     }
   }
-}
+
