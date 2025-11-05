@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-echo "Hello from CI"
+echo "Hello from CI (v2)"

@@ -4,5 +4,5 @@ set -euo pipefail
 OUT=$(bash app/app.sh)
 echo "App says: $OUT"
 
-grep -q "Hello from CI" <<< "$OUT"
+grep -Eq "Hello from CI( \\(v2\\))?" <<< "$OUT"
 echo "✅ Test passed"
