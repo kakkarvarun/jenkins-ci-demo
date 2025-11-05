@@ -1,8 +1,8 @@
 pipeline {
   agent any
-  options { skipDefaultCheckout(true); timestamps() }  // nice timestamps in logs
+  options { skipDefaultCheckout(true); timestamps() }
 
-  // Poll every 5 minutes (H spreads load randomly within the minute)
+  // Poll every ~5 minutes
   triggers { pollSCM('H/5 * * * *') }
 
   stages {
@@ -11,37 +11,39 @@ pipeline {
         checkout scm
       }
     }
+
     stage('Build') {
       steps {
-        sh '''
-          echo "🔧 Simulating build..."
-          sleep 2
-          echo "✅ Build step complete"
-        '''
+        // keep these as single-line sh steps to avoid quoting issues
+        sh 'echo "🔧 Simulating build..."'
+        sh 'sleep 2'
+        sh 'echo "✅ Build step complete"'
       }
     }
+
     stage('Test') {
       steps {
-        sh '''
-          chmod +x scripts/run_tests.sh app/app.sh
-          bash scripts/run_tests.sh
-        '''
+        // convert Windows CRLF to LF so bash won’t choke
+        sh 'sed -i "s/\\r$//" scripts/run_tests.sh app/app.sh'
+        sh 'chmod +x scripts/run_tests.sh app/app.sh'
+        sh 'bash scripts/run_tests.sh'
       }
     }
   }
 
   post {
-  success {
-    echo "🎉 SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-    mail to: 'kakkar.varun67@gmail.com',
-         subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-         body: "Build URL: ${env.BUILD_URL}\nCommit: ${env.GIT_COMMIT}"
-  }
-  failure {
-    echo "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-    mail to: 'kakkar.varun67@gmail.com',
-         subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-         body: "Build URL: ${env.BUILD_URL}\nCheck console output."
+    success {
+      echo "🎉 SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+      // If you configured email (Gmail or MailHog), you can enable this:
+      // mail to: 'kakkar.varun67@gmail.com',
+      //      subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+      //      body: "Build URL: ${env.BUILD_URL}\nCommit: ${env.GIT_COMMIT}"
+    }
+    failure {
+      echo "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+      // mail to: 'kakkar.varun67@gmail.com',
+      //      subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+      //      body: "Build URL: ${env.BUILD_URL}\nCheck console output."
+    }
   }
 }
-
