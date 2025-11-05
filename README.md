@@ -9,3 +9,5 @@ Simple repo to demo Jenkins polling-based CI pipeline:
 bash scripts/run_tests.sh
 ### Change for polling demo
 This line should trigger Jenkins via Poll SCM.
+
+Trigger email test via polling.
