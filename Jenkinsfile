@@ -31,19 +31,17 @@ pipeline {
   }
 
   post {
-    success {
-      echo "🎉 SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-      // Optional email (configure SMTP first; see Part D)
-      // mail to: 'your-email@example.com',
-      //      subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-      //      body: "Build URL: ${env.BUILD_URL}"
-    }
-    failure {
-      echo "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
-      // Optional email (configure SMTP first)
-      // mail to: 'your-email@example.com',
-      //      subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-      //      body: "Build URL: ${env.BUILD_URL}"
-    }
+  success {
+    echo "🎉 SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+    mail to: 'kakkar.varun67@gmail.com',
+         subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+         body: "Build URL: ${env.BUILD_URL}\nCommit: ${env.GIT_COMMIT}"
+  }
+  failure {
+    echo "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+    mail to: 'kakkar.varun67@gmail.com',
+         subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+         body: "Build URL: ${env.BUILD_URL}\nCheck console output."
   }
 }
+
