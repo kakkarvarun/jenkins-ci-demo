@@ -45,4 +45,4 @@ pipeline {
            body: "Build URL: ${env.BUILD_URL}\nCheck console output."
     }
   }
-
+}
