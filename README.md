@@ -7,3 +7,5 @@ Simple repo to demo Jenkins polling-based CI pipeline:
 - Notification (console + optional email)
 ## How to run tests locally
 bash scripts/run_tests.sh
+### Change for polling demo
+This line should trigger Jenkins via Poll SCM.
