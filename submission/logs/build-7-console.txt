@@ -1,0 +1,67 @@
+Started by an SCM change
+Obtained Jenkinsfile from git https://github.com/kakkarvarun/jenkins-ci-demo.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ci-demo
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2025-11-05T23:06:27.933Z] Selected Git installation does not exist. Using Default
+[2025-11-05T23:06:27.933Z] The recommended git tool is: NONE
+[2025-11-05T23:06:27.933Z] using credential github-https
+[2025-11-05T23:06:27.939Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/ci-demo/.git # timeout=10
+[2025-11-05T23:06:27.942Z] Fetching changes from the remote Git repository
+[2025-11-05T23:06:27.944Z]  > git config remote.origin.url https://github.com/kakkarvarun/jenkins-ci-demo.git # timeout=10
+[2025-11-05T23:06:27.948Z] Fetching upstream changes from https://github.com/kakkarvarun/jenkins-ci-demo.git
+[2025-11-05T23:06:27.948Z]  > git --version # timeout=10
+[2025-11-05T23:06:27.951Z]  > git --version # 'git version 2.47.3'
+[2025-11-05T23:06:27.951Z] using GIT_ASKPASS to set credentials 
+[2025-11-05T23:06:27.954Z]  > git fetch --tags --force --progress -- https://github.com/kakkarvarun/jenkins-ci-demo.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-11-05T23:06:28.206Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-11-05T23:06:28.213Z] Checking out Revision f75f426cdf293dcc4000ed4e18f9d7e8af36ad0d (refs/remotes/origin/main)
+[2025-11-05T23:06:28.213Z]  > git config core.sparsecheckout # timeout=10
+[2025-11-05T23:06:28.220Z]  > git checkout -f f75f426cdf293dcc4000ed4e18f9d7e8af36ad0d # timeout=10
+[2025-11-05T23:06:28.236Z] Commit message: "docs: trigger email test via polling attempt 3"
+[2025-11-05T23:06:28.236Z]  > git rev-list --no-walk 061f2b309214c957bd57f389d5ed18198ce8b4ae # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+[2025-11-05T23:06:28.692Z] + echo 🔧 Simulating build...
+[2025-11-05T23:06:28.692Z] 🔧 Simulating build...
+[Pipeline] sh
+[2025-11-05T23:06:28.996Z] + sleep 2
+[Pipeline] sh
+[2025-11-05T23:06:31.147Z] + echo ✅ Build step complete
+[2025-11-05T23:06:31.148Z] ✅ Build step complete
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
+[2025-11-05T23:06:31.604Z] + sed -i s/\r$// scripts/run_tests.sh app/app.sh
+[Pipeline] sh
+[2025-11-05T23:06:31.904Z] + chmod +x scripts/run_tests.sh app/app.sh
+[Pipeline] sh
+[2025-11-05T23:06:32.201Z] + bash scripts/run_tests.sh
+[2025-11-05T23:06:32.201Z] App says: Hello from CI (v2)
+[2025-11-05T23:06:32.201Z] ✅ Test passed
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+[2025-11-05T23:06:32.408Z] 🎉 SUCCESS: ci-demo #7
+[Pipeline] mail
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
